@@ -1,0 +1,68 @@
+<html>
+  <head>
+    <title>Courses</title>
+    <script>
+
+    </script>
+  </head>
+  <body>
+    <div id="wrapper">
+
+      <div id="addcourse">
+
+        {% with messages = get_flashed_messages() %}
+      		{% if messages %}
+      			{% for message in messages %}
+      				<p>{{message}}</p>
+      			{% endfor %}
+      		{% endif %}
+      	{% endwith %}
+
+        <h3>Add a new course</h3>
+
+          <form action="/add_course" method='post'>
+            Name: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="title"required>
+            <br><br>
+            Decription: <textarea name="description" cols="30" rows="10"></textarea>
+            <input type="submit" value="Add">
+          </form>
+
+      </div>
+
+      <div id="courses">
+
+        <form action="delete">
+          <table>
+  					<thead>
+  						<tr>
+  							<th>
+  								Course Name
+  							</th>
+  							<th>
+  								Description
+  							</th>
+  							<th>
+  								Date Added
+  							</th>
+  							<th>
+  								Actions
+  							</th>
+  						</tr>
+  					</thead>
+  					<tbody>
+              {% for course in courses %}
+  					<tr>
+  						<td> {{ course['title'] }} </td>
+  						<td>  {{ course['description'] }} </td>
+  						<td> {{ course['created_at'] }}</td>
+  						<td><a href="/confirm_delete/{{course['id']}}"><button type="button" name="remove">Remove</button></a></td>
+
+  					</tr>
+              {% endfor %}
+  					</tbody>
+  				</table>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
